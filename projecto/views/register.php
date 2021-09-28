@@ -69,8 +69,7 @@
                             <button class="button is-block is-info is-medium is-fullwidth is-hovered" name="Registrar">Registrar <i class="fa fa-sign-in" aria-hidden="true"></i></button>
                         </form>
                     </div>
-                    <p class="has-text-grey">
-                        <a href="login.html">Iniciar sesion</a> &nbsp;·&nbsp;
+                    <p class="has-text-grey">                        
                         <a href="../">Necesitas ayuda?</a>
                     </p>
                 </div>

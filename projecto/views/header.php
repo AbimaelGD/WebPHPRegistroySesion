@@ -24,12 +24,10 @@
         </div>
 
         <div class="navbar-end">
-            <a class="navbar-item" href="?menu=login">
-                Iniciar sesion
-            </a>
-            <a class="navbar-item" href="?menu=register">
-                Registro
+            <a class="navbar-item" href="?menu=alumnos">
+                Alumnos
             </a>
         </div>
+
     </div>
 </nav>

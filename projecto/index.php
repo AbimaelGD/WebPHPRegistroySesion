@@ -26,6 +26,7 @@
         <?php include 'views/header.php' ?>
     </section>
     <section class="section">
+    
         <?php include 'controller/routing.php' ?>
         <?php include 'views/footer.php' ?>
 

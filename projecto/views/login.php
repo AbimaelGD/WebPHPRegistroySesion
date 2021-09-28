@@ -1,5 +1,33 @@
 <!DOCTYPE html>
 <html>
+<?php
+
+session_start();
+
+if (isset($_SESSION['user_id'])) {
+  header('Location: /projecto');
+}
+require 'conn.php';
+
+if (!empty($_POST['correo']) && !empty($_POST['contraseña'])) {
+  $records = $conn->prepare('SELECT ID, Usuario_Correo,Contraseña FROM usuarios WHERE Usuario_Correo = :email');
+  $records->bindParam(':email', $_POST['correo']);
+  $records->execute();
+  $results = $records->fetch(PDO::FETCH_ASSOC);
+
+  $message = '';
+
+  if (count($results) > 0 && password_verify($_POST['contraseña'], $results['Contraseña'])) {
+    $_SESSION['user_id'] = $results['ID'];
+    header("Location: /projecto");
+  } else {
+    $message = 'Sorry, those credentials do not match';
+  }
+}
+
+
+
+?>
 
 <head>
   <meta charset="utf-8">
@@ -12,6 +40,8 @@
   <!-- Bulma Version 0.9.0-->
   <link rel="stylesheet" href="css/bulma.css" />
   <link rel="stylesheet" type="text/css" href="css/login.css">
+  <!--JavaScript-->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -26,16 +56,17 @@
             <figure class="avatar">
               <img src="images/user-male-icon.png" width="128px" height="128px">
             </figure>
-            <form>
+
+            <form action="" method="POST">
               <div class="field">
                 <div class="control">
-                  <input class="input is-large is-rounded" type="email" placeholder="Tu correo" autofocus="">
+                  <input class="input is-large is-rounded" required type="email" placeholder="Tu correo" autofocus="" name="correo">
                 </div>
               </div>
 
               <div class="field">
                 <div class="control">
-                  <input class="input is-large is-rounded" type="password" placeholder="Tu contraseña" >
+                  <input class="input is-large is-rounded" pattern="[A-Za-z0-9_-]{1,8}" required type="password" placeholder="Tu contraseña" name="contraseña">
                 </div>
               </div>
               <div class="field">
@@ -44,12 +75,10 @@
                   Recuerdame
                 </label>
               </div>
-              <button class="button is-block is-info is-large is-fullwidth is-hovered" >Iniciar <i class="fa fa-sign-in"
-                  aria-hidden="true"></i></button>
+              <button class="button is-block is-info is-large is-fullwidth is-hovered" name="login">Iniciar <i class="fa fa-sign-in" aria-hidden="true"></i></button>
             </form>
           </div>
           <p class="has-text-grey">
-            <a href="register.html">Registrate</a> &nbsp;·&nbsp;
             <a href="../">Recuperar contraseña</a> &nbsp;·&nbsp;
             <a href="../">Necesitas ayuda?</a>
           </p>
@@ -58,5 +87,7 @@
     </div>
   </section>
   <script async type="text/javascript" src="../js/bulma.js"></script>
+
 </body>
+
 </html>
