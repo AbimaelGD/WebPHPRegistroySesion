@@ -53,8 +53,8 @@
                                 <div class="select  is-medium is-rounded">
                                     <select name="Sexo">
                                         <option>Sexo</option>
-                                        <option>Hombre</option>
-                                        <option>Mujer</option>
+                                        <option>M</option>
+                                        <option>F</option>
                                         <option>Otro</option>
                                     </select>
                                 </div>

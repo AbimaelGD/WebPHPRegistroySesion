@@ -24,7 +24,8 @@ switch ($var_getMenu) {
         break;
     case "alumnos":
         require_once('./views/alumnos.php');
-        break;  
+        break;
+    
     default:
         require_once('./views/home.php');
 }
