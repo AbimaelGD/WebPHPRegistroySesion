@@ -1,13 +1,7 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 $var_getMenu = isset($_GET['menu']) ? $_GET['menu'] : 'inicio';
-// $var_getMenu = $_GET['menu'];
+
 
 switch ($var_getMenu) {
     case "inicio":
@@ -23,9 +17,21 @@ switch ($var_getMenu) {
         require_once('./views/register.php');
         break;
     case "alumnos":
-        require_once('./views/alumnos.php');
+        require_once('./views/viewalumnos.php');
         break;
-    
+    case "deletealumno":
+        $_idalumno = trim(filter_input(INPUT_GET, 'idalumno'));
+        // $_idalumno = isset($_GET['idalumno']) ? $_GET['idalumno'] : '0';
+        require_once('./model/alumnos.php');
+        $sqlAlumnos = alumnos::delete($_idalumno);
+        header("location: ./index.php?menu=alumnos");
+        break;
+    case "editalumno":
+        $_idalumno = trim(filter_input(INPUT_GET, 'idalumno'));
+        require_once('./model/alumnos.php');
+        $sqlAlumnos = alumnos::consultarAlumno($_idalumno);
+        include_once './views/editaralumno.php';
+        break;
     default:
         require_once('./views/home.php');
 }
